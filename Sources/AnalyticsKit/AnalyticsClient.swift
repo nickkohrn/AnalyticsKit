@@ -1,7 +1,12 @@
 import TelemetryClient
 
 public struct AnalyticsClient {
-    public var configure: @Sendable (_ configuration: TelemetryManagerConfiguration) async -> Void
-    public var enable: @Sendable (_ configuration: TelemetryManagerConfiguration, _ enable: Bool) async -> Void
-    public var send: @Sendable (String, [String: String]) async -> Void
+    public enum PermissionEvent: Equatable {
+        case enable(appID: String)
+        case disable
+    }
+
+    public var configure: @Sendable (_ appID: String) async -> Void
+    public var updatePermission: @Sendable (_ event: PermissionEvent) async -> Void
+    public var send: @Sendable (_ key: String, _ value: [String: String]) async -> Void
 }
