@@ -27,6 +27,7 @@ extension AnalyticsClient: DependencyKey {
             }
         },
         send: { key, value in
+            guard TelemetryManager.isInitialized else { return }
             TelemetryManager.send(key, with: value)
         }
     )
